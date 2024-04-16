@@ -10,7 +10,7 @@ body {
 
 .banner {
   height: 100vh;
-  background: linear-gradient(45deg,rgba(0,0,0,.4) ,rgba(0,0,0,.5), transparent 85%),url(images/Flag_of_Sweden.svg.png) no-repeat center center /cover;
+  background: linear-gradient(45deg,rgba(0,0,0,.4) ,rgba(0,0,0,.5), transparent 85%),url('../images/Flag_of_Sweden.svg.png') no-repeat center center /cover;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: left;

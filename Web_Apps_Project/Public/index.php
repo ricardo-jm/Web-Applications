@@ -1,3 +1,5 @@
+<?php
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,12 +21,12 @@
     <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
       <!-- Brand -->
       <a class="navbar-brand" href="index.html">SVDNS</a>
-    
+
       <!-- Toggler/collapsibe Button -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
-    
+
       <!-- Navbar links -->
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
@@ -56,7 +58,7 @@
           </li>
         </ul>
       </div>
-    </nav> 
+    </nav>
     <!-- End Navbar -->
 
     <!-- Banner -->
@@ -70,9 +72,8 @@
             </div>
             <div class="row justify-content-end">
               <a href="contact.html" class="btn btn-danger btn-lg px-4 m-5">Contact Us</a>
-            </div>  
+            </div>
             <h2 class="font-weight-light font-italic text-light">Providing Diagnostics support to Volvo enthusiasts</h2>
-            <h2 class="font-weight-light font-italic text-light">Please register or login to view products</h2>
           </div>
         </div>
       </div>
@@ -125,7 +126,7 @@
   </section>
   <!-- End of Links -->
 
-  
+
 
 
   <!-- Footer -->
@@ -149,8 +150,8 @@
     </div>
   </footer>
     <!-- End of Footer -->
-  
-  
+
+
     <script
     src="https://code.jquery.com/jquery-3.7.1.js"
     integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
