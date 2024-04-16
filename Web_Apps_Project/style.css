@@ -1,0 +1,138 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+
+
+body {
+  font-family: 'Libre Baskerville', sans-serif;
+  background-color: rgb(145, 144, 144);
+}
+
+
+.banner {
+  height: 100vh;
+  background: linear-gradient(45deg,rgba(0,0,0,.4) ,rgba(0,0,0,.5), transparent 85%),url(images/Flag_of_Sweden.svg.png) no-repeat center center /cover;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: left;
+  padding: 30px;
+  transition: all .7s;
+}
+
+
+.home-link{
+  color: #70aed2;
+  font-size: 19px;
+}
+
+.home-link:hover{
+  color: #f1e210;
+  text-decoration: none;
+  transition: all .3s;
+}
+
+.dropdown-item{
+  color: #70aed2;
+}
+
+.dropdown-item:hover{
+  color: #f1e210;
+}
+
+
+.footer{
+  background-color: #1f4b64;
+}
+
+/* Home */
+.diag{
+  position: relative;
+  left: 15px;
+  top: 15px;
+}
+
+.img-home{
+  max-width: 400px;
+  border-radius: 50%;
+}
+
+.div_home{
+  float: left;
+  margin-left: 100px;
+}
+/* End Home */
+
+/* Rentals */
+.img-rentals{
+  max-width: 650px;
+  width:100%;
+}
+/* End of Rentals */
+
+/* Sales */
+.img-sales{
+  max-width: 400px;
+  width:100%;
+}
+/* End of Sales */
+
+/* links */
+.img-links{
+  max-width: 1000px;
+  width:100%;
+}
+/* End of links */
+
+/* Gallery */
+.img-gallery{
+  max-width: 550px;
+  width:100%;
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    -webkit-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+    margin-bottom:20px;
+}
+
+.img-gallery:hover{
+  filter: none; /* IE6-9 */
+  -webkit-filter: grayscale(0); /* Google Chrome, Safari 6+ & Opera 15+ */
+}
+/* End of Gallery */
+
+/* About */
+.img-about{
+  max-width: 450px;
+  width:100%;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+/* End of About */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
