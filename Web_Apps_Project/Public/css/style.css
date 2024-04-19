@@ -43,6 +43,8 @@ body {
   background-color: #1f4b64;
 }
 
+.img-gallery{
+
 /* Home */
 .diag{
   position: relative;
@@ -67,6 +69,13 @@ body {
   width:100%;
 }
 /* End of Rentals */
+
+   /* Rentals */
+  .img-login{
+    max-width: 250px;
+    width:50%;
+  }
+  /* End of Rentals */
 
 /* Sales */
 .img-sales{

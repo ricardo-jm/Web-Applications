@@ -1,0 +1,74 @@
+
+
+<?php
+#var_dump($_POST);
+if (isset($_POST['Submit'])) {
+    try {
+        require "../common.php";
+        require_once '../src/DBconnect.php';
+        $password = escape($_POST['Password']);
+        $username = escape($_POST['Username']);
+        $sql = "SELECT * FROM user WHERE username = :username";
+        $statement = $connection->prepare($sql);
+        $statement->bindParam(':username', $username, PDO::FETCH_ASSOC);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        #var_dump($user);
+
+        if ($user && $statement->rowCount() > 0) {
+            if (($user['username'] == $_POST['Username']) && ($user['pwd'] == $_POST['Password'])) {
+                echo 'Username or Password are correct';
+                /* Success: Set session variables and redirect to protected page*/
+                $_SESSION['Username'] = $username; //store Username to the session
+                $_SESSION['Active'] = true;
+                header("location:index.php");
+                exit; //we’ve just used header() to redirect to another page but we must terminate all current code so that it doesn’t run when we redirect
+            } else echo 'Incorrect Username or Password';
+        }else echo 'Incorrect Username or Password';
+    } catch(PDOException $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
+
+}else {
+    echo "Something went wrong!";
+    exit;
+}
+
+
+?>
+
+<?php include "templates/header.php"; ?>
+
+<body>
+<!-- Login -->
+<section class="pt-4 bg-secondary">
+    <div class="container-fluid">
+        <div class="row bg-secondary justify-content-center text-center align-items-center text-white">
+            <div class="col-lg-6">
+                <img src="images/dice.jpeg" alt="immobilizer" class="img-fluid img-login">
+            </div>
+            <div class="col-lg-6 text-left">
+                <h2>Please login</h2>
+                <form action="" method="post" name="Login_Form" class="form-signin">
+                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <label for="inputUsername" >Username</label>
+                    <input name="Username" type="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+                    <label for="inputPassword">Password</label>
+                    <input name="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                    </div>
+                    <button name="Submit" value="Login" class="button" type="submit">Sign in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End of Login -->
+
+<?php include "templates/footer.php"; ?>
+
+</body>
+</html>
