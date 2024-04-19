@@ -1,13 +1,14 @@
 
 
 <?php
-#var_dump($_POST);
+session_start();
+$user = null;
 if (isset($_POST['Submit'])) {
     try {
         require "../common.php";
         require_once '../src/DBconnect.php';
         $password = escape($_POST['Password']);
-        $username = escape($_POST['Username']);
+        $username = strtolower(escape($_POST['Username']));
         $sql = "SELECT * FROM user WHERE username = :username";
         $statement = $connection->prepare($sql);
         $statement->bindParam(':username', $username, PDO::FETCH_ASSOC);
@@ -17,7 +18,7 @@ if (isset($_POST['Submit'])) {
 
         if ($user && $statement->rowCount() > 0) {
             if (($user['username'] == $_POST['Username']) && ($user['pwd'] == $_POST['Password'])) {
-                echo 'Username or Password are correct';
+                echo 'Username and Password are correct';
                 /* Success: Set session variables and redirect to protected page*/
                 $_SESSION['Username'] = $username; //store Username to the session
                 $_SESSION['Active'] = true;
@@ -28,16 +29,10 @@ if (isset($_POST['Submit'])) {
     } catch(PDOException $error) {
         echo $sql . "<br>" . $error->getMessage();
     }
-
-}else {
-    echo "Something went wrong!";
-    exit;
 }
-
-
 ?>
 
-<?php include "templates/header.php"; ?>
+<?php include "templates/header_login.php"; ?>
 
 <body>
 <!-- Login -->
@@ -48,7 +43,6 @@ if (isset($_POST['Submit'])) {
                 <img src="images/dice.jpeg" alt="immobilizer" class="img-fluid img-login">
             </div>
             <div class="col-lg-6 text-left">
-                <h2>Please login</h2>
                 <form action="" method="post" name="Login_Form" class="form-signin">
                     <h2 class="form-signin-heading">Please sign in</h2>
                     <label for="inputUsername" >Username</label>
