@@ -38,7 +38,7 @@ if (isset($_POST['submit']) && $statement)
                     <h2>Register User</h2>
                     <form method="post">
                         <div class="form-group">
-                            <label for="Username">Username</label>
+                            <label for="Username">Username    </label>
                             <input type="text" name="username" id="username" required>
                         </div>
                         <div class="form-group">
