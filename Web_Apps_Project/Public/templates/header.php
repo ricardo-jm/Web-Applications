@@ -46,7 +46,7 @@ if($_SESSION['Active'] == false){
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Prices</a>
                     <div class="dropdown-menu bg-dark">
-                        <a class="dropdown-item bg-dark" href="rentals.html">Rentals</a>
+                        <a class="dropdown-item bg-dark" href="products.php">Rentals</a>
                         <a class="dropdown-item bg-dark" href="sales.html">Sales</a>
                     </div><!-- End Dropdown -->
                 </li>
