@@ -39,14 +39,6 @@ session_start();
                 <li class="nav-item">
                     <a class="nav-link" href="services.html">Services</a>
                 </li>
-                <!-- Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Prices</a>
-                    <div class="dropdown-menu bg-dark">
-                        <a class="dropdown-item bg-dark" href="rentals.html">Rentals</a>
-                        <a class="dropdown-item bg-dark" href="sales.html">Sales</a>
-                    </div><!-- End Dropdown -->
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="links.html">Links/Downloads</a>
                 </li>
@@ -67,13 +59,7 @@ session_start();
                     <a class="nav-link" href="login.php">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="register.php">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a href="shopping_cart.php"><i class="fa fa-shopping-cart fa-2x text-warning mx-3"></i></a>
                 </li>
             </ul>
         </div>

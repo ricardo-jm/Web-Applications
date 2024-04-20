@@ -3,7 +3,14 @@ session_start();
 if($_SESSION['Active'] == false){
     header("location:login.php");
     exit;
+}else {
+    $hidden_when_login = 'd-none';
+    if($_SESSION['Username'] != 'admin') {
+        $hidden_when_not_admin = 'd-none';
+    }
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -44,10 +51,13 @@ if($_SESSION['Active'] == false){
                 </li>
                 <!-- Dropdown -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Prices</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Products</a>
                     <div class="dropdown-menu bg-dark">
-                        <a class="dropdown-item bg-dark" href="products.php">Rentals</a>
-                        <a class="dropdown-item bg-dark" href="sales.html">Sales</a>
+                        <a class="dropdown-item bg-dark" href="products.php">View All Products</a>
+                        <a class="dropdown-item bg-dark" href="search_products.php">Search Products</a>
+                        <a class="dropdown-item bg-dark <?php echo $hidden_when_not_admin; ?>" href="add_product.php">Add Product</a>
+                        <a class="dropdown-item bg-dark <?php echo $hidden_when_not_admin; ?>" href="remove_product.php">Remove Product</a>
+                        <a class="dropdown-item bg-dark <?php echo $hidden_when_not_admin; ?>" href="edit_product.php">Edit Product</a>
                     </div><!-- End Dropdown -->
                 </li>
                 <li class="nav-item">
@@ -67,13 +77,13 @@ if($_SESSION['Active'] == false){
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item float-right">
-                    <a class="nav-link" href="login.php">Login</a>
+                    <a class="nav-link <?php echo $hidden_when_login; ?>" href="login.php">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Logout</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="register.php">Register</a>
+                    <a class="nav-link <?php echo $hidden_when_login; ?>" href="register.php">Register</a>
                 </li>
                 <li class="nav-item">
                     <a href="shopping_cart.php"><i class="fa fa-shopping-cart fa-2x text-warning mx-3"></i></a>

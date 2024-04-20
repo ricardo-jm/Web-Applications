@@ -56,7 +56,7 @@ if (isset($_POST['submit']) && $statement)
                         <input name="price" type="number" id="price" class="form-control" placeholder="Price" required>
                         <label for="image" >Image</label>
                         <input name="image" type="text" id="image" class="form-control" placeholder="Image" required>
-                        <input type="submit" name="submit" value="Add">
+                        <input type="submit" name="submit" value="Add" class="mt-2">
                     </form>
                 </div>
             </div>

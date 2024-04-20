@@ -53,7 +53,7 @@ FROM product";
                         <h5><?php echo $products['category']; ?></span></h5>
                         <h5><?php echo 'Description: '. $products['proddescription']; ?></h5>
                         <h5><?php echo 'Price: '. $products['price']; ?>€</h5>
-                        <a href="remove_product.php?id=<?php echo escape($products["id"]); ?> "> Delete </a>
+                        <a href="remove_product.php?id=<?php echo escape($products["id"]); ?> " class="home-link text-uppercase"> Remove </a>
                 </div>
             <?php } ?>
         </div>

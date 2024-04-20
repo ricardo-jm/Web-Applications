@@ -35,8 +35,8 @@ FROM product";
 
                     <h5><?php echo $products['category']; ?></span></h5>
                     <h5><?php echo 'Description: '. $products['proddescription']; ?></h5>
-                    <h5><?php echo 'Price: '. $products['price']; ?>€</h5>
-                    <a href="edit_single.php?id=<?php echo escape($products["id"]); ?> "> Edit </a>
+                    <h5 class="mb-2"><?php echo 'Price: '. $products['price']; ?>€</h5>
+                    <a href="edit_single.php?id=<?php echo escape($products["id"]); ?> " class="home-link text-uppercase"> Edit </a>
                 </div>
             <?php } ?>
         </div>
