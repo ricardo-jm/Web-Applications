@@ -32,11 +32,10 @@ FROM product";
                         <?php echo $products['prodname']; ?>
                     </h2>
 
-                        <h5><?php echo $products['category']; ?></span></h5>
-                        <h5><?php echo 'Description: '. $products['proddescription']; ?></h5>
-                        <h5><?php echo 'Price: '. $products['price']; ?>€</h5>
-
-
+                    <h5><?php echo $products['category']; ?></span></h5>
+                    <h5><?php echo 'Description: '. $products['proddescription']; ?></h5>
+                    <h5><?php echo 'Price: '. $products['price']; ?>€</h5>
+                    <a href="shopping_cart.php?id=<?php echo escape($products["id"]); ?>" class="home-link text-uppercase"> Add to cart </a>
                 </div>
             <?php } ?>
         </div>
