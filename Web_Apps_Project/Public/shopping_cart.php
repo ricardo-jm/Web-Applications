@@ -65,85 +65,98 @@ if (isset($_GET['id'])) {
     addItemToCart($id);
 }
 
+
+
 $cartItems = getShoppingCart();
 
-foreach($cartItems as $id => $quantity):
+if(empty($cartItems)){
+    header("location:products.php");
+} else {
+    foreach($cartItems as $id => $quantity):
 
-    try {
+        try {
 
-        require_once '../src/DBconnect.php';
-        $sql = "SELECT * FROM product WHERE id = :id2";
-        $id2 = $id +1 ;
-        $statement = $connection->prepare($sql);
-        $statement->bindParam(':id2', $id2, PDO::PARAM_STR);
-        $statement->execute();
-        $product = $statement->fetch(PDO::FETCH_ASSOC);
-    } catch(PDOException $error) {
-        echo $sql . "<br>" . $error->getMessage();
-    }
+            require_once '../src/DBconnect.php';
+            $sql = "SELECT * FROM product WHERE id = :id2";
+            $id2 = $id +1 ;
+            $statement = $connection->prepare($sql);
+            $statement->bindParam(':id2', $id2, PDO::PARAM_STR);
+            $statement->execute();
+            $product = $statement->fetch(PDO::FETCH_ASSOC);
+        } catch(PDOException $error) {
+            echo $sql . "<br>" . $error->getMessage();
+        }
 
-    var_dump($_SESSION['cart']);
-    echo '   VARDUMP Result22222222***:    ', "\n";
-    var_dump($product);
+        var_dump($_SESSION['cart']);
+        echo '   VARDUMP Result22222222***:    ', "\n";
+        var_dump($product);
 
-    $price = $product['price'];
-    $subtotal = $quantity * $price;
-    // update total
-    $total += $subtotal;
-    // format prices to 2 d.p.
-    $price = number_format($price, 2);
-    $subtotal = number_format($subtotal, 2);
-?>
+        $price = $product['price'];
+        $subtotal = $quantity * $price;
+        // update total
+        $total += $subtotal;
+        // format prices to 2 d.p.
+        $price = number_format($price, 2);
+        $subtotal = number_format($subtotal, 2);
+    ?>
 
 
+
+        <div class="row border-top">
+            <div class="col product text-center">
+                <img src="/Web_Apps_Project/Public/images/<?= $product['image'] ?>" alt="<?= $product['image'] ?>" class="img-rounded img-sales img-thumbnail">
+            </div>
+            <div class="col">
+                <?php echo 'VARDUMP product'; var_dump($product['prodname']);?>
+                <h4><?= $product['prodname'] ?></h4>
+                <?= $product['proddescription'] ?>
+            </div>
+            <div class="col price text-right align-self-center">
+                $ <?= $price ?>
+            </div>
+            <div class="col text-center align-self-center">
+                <form action="?action=changeCartQuantity&id=<?= $id ?>" method="post">
+                    <button type="submit" name="amount" value="reduce"
+                              class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                    <?= $quantity ?>
+                    <button type="submit" name="amount" value="increase"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </form>
+            </div>
+            <div class="col price text-right align-self-center">
+                $ <?= $subtotal ?>
+            </div>
+            <div class="col align-self-center">
+                <form   action="?action=removeFromCart&id=<?= $id ?>" method="post">
+                    <button class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove"></span>Remove
+                    </button>
+                </form>
+            </div>
+        </div>
+    <?php endforeach; ?>
 
     <div class="row border-top">
-        <div class="col product text-center">
-            <img src="/Web_Apps_Project/Public/images/<?= $product['image'] ?>" alt="<?= $product['image'] ?>" class="img-rounded img-sales img-thumbnail">
+        <div class="col-10 price text-right">
+            <?php
+            $total = number_format($total, 2);
+            ?>
+            $ <?= $total ?>
         </div>
-        <div class="col">
-            <h4><?= $product['prodname'] ?></h4>
-            <?= $product['proddescription'] ?>
-        </div>
-        <div class="col price text-right align-self-center">
-            $ <?= $price ?>
-        </div>
-        <div class="col text-center align-self-center">
-            <form action="?action=changeCartQuantity&id=<?= $id ?>" method="post">
-                <button type="submit" name="amount" value="reduce"
-                          class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </button>
-                <?= $quantity ?>
-                <button type="submit" name="amount" value="increase"
-                        class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            </form>
-        </div>
-        <div class="col price text-right align-self-center">
-            $ <?= $subtotal ?>
-        </div>
-        <div class="col align-self-center">
-            <form   action="?action=removeFromCart&id=<?= $id ?>" method="post">
-                <button class="btn btn-danger btn-sm">
-                    <span class="glyphicon glyphicon-remove"></span>Remove
-                </button>
-            </form>
+        <div class="col font-weight-bold ">
+            Total
         </div>
     </div>
-<?php endforeach; ?>
+    <div class="row border-top">
+        <div class="col-10 text-center">
+            <a href="products.php" class="home-link text-uppercase mt-4">Continue Shopping</a>
+        </div>
+    </div>
+    </body>
+    </html>
 
-<div class="row border-top">
-    <div class="col-10 price text-right">
-        <?php
-        $total = number_format($total, 2);
-        ?>
-        $ <?= $total ?>
-    </div>
-    <div class="col font-weight-bold ">
-        Total
-    </div>
-</div>
-</body>
-</html>
+<?php } ?>

@@ -14,7 +14,7 @@ function addItemToCart($id)
 {
     $id = $id - 1; // Product id passed in Get method starts with 1 and products array starts with 0 so adjusting value
     $cartItems = getShoppingCart();
-    $cartItems[$id] = 1;
+    $cartItems[$id] = $cartItems[$id] +1;
     $_SESSION['cart'] = $cartItems;
 }
 
@@ -22,6 +22,9 @@ function removeItemFromCart($id)
 {
     $cartItems = getShoppingCart();
     unset($cartItems[$id]);
+    echo '    VARDUMP Cart items after remove:    ', "\n";
+
+    var_dump($_SESSION['cart']);
     $_SESSION['cart'] = $cartItems;
     echo '    VARDUMP SESSION after remove:    ', "\n";
     var_dump($_SESSION['cart']);
