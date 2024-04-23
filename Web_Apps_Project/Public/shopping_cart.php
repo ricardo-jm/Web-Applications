@@ -27,49 +27,62 @@ if($_SESSION['Active'] == false){
 
 require "../src/functions.php";
 
+// try to find "action" in query-string variables
+$action = filter_input(INPUT_GET, 'action');
+switch ($action){
+    case 'cart':
+        //displayCart();
+        break;
+    case 'addToCart':
+        $id = filter_input(INPUT_GET, 'id');
+        addItemToCart($id);
+        //displayCart();
+        break;
+    case 'removeFromCart':
+        $id = filter_input(INPUT_GET, 'id');
+        removeItemFromCart($id);
+        //displayCart();
+        break;
+    case 'changeCartQuantity':
+        $id = filter_input(INPUT_GET, 'id');
+        $amount = filter_input(INPUT_POST, 'amount');
+        if($amount == 'increase'){
+            increaseCartQuantity($id);
+        } else {
+            reduceCartQuantity($id);
+        }
+        //displayCart();
+        break;
+    default:
+        //displayProducts();;
+}
+
+
 $total = 0;
 
 if (isset($_GET['id'])) {
     $id = filter_input(INPUT_GET, 'id');
     addItemToCart($id);
-    var_dump($_SESSION['cart']);
 }
 
-/*try {
-    require "../common.php";
-    require_once '../src/DBconnect.php';
-    $sql = "SELECT * FROM product";
-    $statement = $connection->prepare($sql);
-    $statement->execute();
-    $result = $statement->fetchAll();
-} catch(PDOException $error) {
-    echo $sql . "<br>" . $error->getMessage();
-}
-echo '   VARDUMP Result *******:    ', "\n";
-var_dump($result[6][0]);
-*/
 $cartItems = getShoppingCart();
 
 foreach($cartItems as $id => $quantity):
 
     try {
-        require "../common.php";
+
         require_once '../src/DBconnect.php';
         $sql = "SELECT * FROM product WHERE id = :id2";
         $id2 = $id +1 ;
         $statement = $connection->prepare($sql);
         $statement->bindParam(':id2', $id2, PDO::PARAM_STR);
         $statement->execute();
-        $result2 = $statement->fetch(PDO::FETCH_ASSOC);
+        $product = $statement->fetch(PDO::FETCH_ASSOC);
     } catch(PDOException $error) {
         echo $sql . "<br>" . $error->getMessage();
     }
 
-    var_dump($id2);
-
-    $product = $result2;
-
-
+    var_dump($_SESSION['cart']);
     echo '   VARDUMP Result22222222***:    ', "\n";
     var_dump($product);
 
@@ -81,6 +94,8 @@ foreach($cartItems as $id => $quantity):
     $price = number_format($price, 2);
     $subtotal = number_format($subtotal, 2);
 ?>
+
+
 
     <div class="row border-top">
         <div class="col product text-center">
@@ -94,7 +109,7 @@ foreach($cartItems as $id => $quantity):
             $ <?= $price ?>
         </div>
         <div class="col text-center align-self-center">
-            <form action="/?action=changeCartQuantity&id=<?= $id ?>" method="post">
+            <form action="?action=changeCartQuantity&id=<?= $id ?>" method="post">
                 <button type="submit" name="amount" value="reduce"
                           class="btn btn-primary btn-sm">
                     <span class="glyphicon glyphicon-minus"></span>
@@ -110,10 +125,9 @@ foreach($cartItems as $id => $quantity):
             $ <?= $subtotal ?>
         </div>
         <div class="col align-self-center">
-            <form action="/?action=removeFromCart&id=<?= $id ?>" method="post">
+            <form   action="?action=removeFromCart&id=<?= $id ?>" method="post">
                 <button class="btn btn-danger btn-sm">
-                    <span class="glyphicon glyphicon-remove"></span>
-                    Remove
+                    <span class="glyphicon glyphicon-remove"></span>Remove
                 </button>
             </form>
         </div>

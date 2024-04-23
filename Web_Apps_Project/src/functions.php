@@ -23,6 +23,8 @@ function removeItemFromCart($id)
     $cartItems = getShoppingCart();
     unset($cartItems[$id]);
     $_SESSION['cart'] = $cartItems;
+    echo '    VARDUMP SESSION after remove:    ', "\n";
+    var_dump($_SESSION['cart']);
 }
 
 function getQuantity($id, $cart)
@@ -54,7 +56,7 @@ function reduceCartQuantity($id)
     $_SESSION['cart'] = $cartItems;
 }
 
-function displayCart()
+/*function displayCart()
 {
     //$products = getAllProducts();
     $cartItems = getShoppingCart();
@@ -63,4 +65,4 @@ function displayCart()
     } else {
         require_once __DIR__ . '/../templates/emptyCart.php';
     }
-}
+}*/
