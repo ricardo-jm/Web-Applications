@@ -1,31 +1,12 @@
 <?php
-include "templates/header_login.php";
-require "../common.php";
+
+require "../src/functions.php";
 if (isset($_POST['submit'])) {
-    try {
-        require_once '../src/DBconnect.php';
-        echo "success";
-        $new_user = array(
-            "username" => strtolower(escape($_POST['username'])),
-            "pwd" => escape($_POST['password']),
-            "email" => escape($_POST['email']),
-            "phone" => escape($_POST['phone'])
-        );
+    register();
+}
 
-        $sql = sprintf( "INSERT INTO %s (%s) values (%s)", "user", implode(", ",
-            array_keys($new_user)), ":" . implode(", :", array_keys($new_user)) );
-        $statement = $connection->prepare($sql);
-        $statement->execute($new_user);
-    } catch(PDOException $error) {
-        echo $sql . "<br>" . $error->getMessage();
-    }
-}
-if (isset($_POST['submit']) && $statement)
-{
-    echo $new_user['username']. ' successfully added';
-}
+include "templates/header_login.php";
 ?>
-
 
     <!-- RegisterR -->
     <section class="pt-4 bg-secondary">

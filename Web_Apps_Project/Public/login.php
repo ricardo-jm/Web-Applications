@@ -39,13 +39,12 @@ if (isset($_POST['Submit'])) {
 
 <?php include "templates/header_login.php"; ?>
 
-<body>
 <!-- Login -->
 <section class="pt-4 bg-secondary">
     <div class="container-fluid">
         <div class="row bg-secondary justify-content-center text-center align-items-center text-white">
             <div class="col-lg-6">
-                <img src="images/dice.jpeg" alt="immobilizer" class="img-fluid img-login">
+                <img src="images/dice.jpeg" alt="immobilizer" class="img-fluid img-rentals">
             </div>
             <div class="col-lg-6 text-left">
                 <form action="" method="post" name="Login_Form" class="form-signin">
@@ -69,5 +68,3 @@ if (isset($_POST['Submit'])) {
 
 <?php include "templates/footer.php"; ?>
 
-</body>
-</html>
