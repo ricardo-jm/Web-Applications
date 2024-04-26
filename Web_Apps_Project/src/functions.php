@@ -1,5 +1,39 @@
 <?php
 
+require "../common.php";
+
+
+function validateLogin()
+{
+    try {
+        //require "../common.php";
+        require_once '../src/DBconnect.php';
+        $password = escape($_POST['Password']);
+        $username = strtolower(escape($_POST['Username']));
+        $sql = "SELECT * FROM user WHERE username = :username";
+        $statement = $connection->prepare($sql);
+        $statement->bindParam(':username', $username, PDO::FETCH_ASSOC);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        #var_dump($user);
+
+        if ($user && $statement->rowCount() > 0) {
+            if (($user['username'] == $username) && ($user['pwd'] == $password)) {
+                echo 'Username and Password are correct';
+
+                $_SESSION['Username'] = $username; //store Username to the session
+                $_SESSION['Active'] = true;
+                header("location:index.php");
+                exit; //we’ve just used header() to redirect to another page but we must terminate all current code so that it doesn’t run when we redirect
+            } else echo 'Incorrect Username or Password';
+        }else echo 'Incorrect Username or Password';
+    } catch(PDOException $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
+}
+
+
+
 function getShoppingCart()
 {
     // default is empty shopping cart array

@@ -3,9 +3,14 @@
 <?php
 session_start();
 $user = null;
+
+require "../src/functions.php";
+
 if (isset($_POST['Submit'])) {
-    try {
-        require "../common.php";
+
+    validateLogin();
+    /*try {
+        //require "../common.php";
         require_once '../src/DBconnect.php';
         $password = escape($_POST['Password']);
         $username = strtolower(escape($_POST['Username']));
@@ -19,7 +24,7 @@ if (isset($_POST['Submit'])) {
         if ($user && $statement->rowCount() > 0) {
             if (($user['username'] == $_POST['Username']) && ($user['pwd'] == $_POST['Password'])) {
                 echo 'Username and Password are correct';
-                /* Success: Set session variables and redirect to protected page*/
+
                 $_SESSION['Username'] = $username; //store Username to the session
                 $_SESSION['Active'] = true;
                 header("location:index.php");
@@ -28,7 +33,7 @@ if (isset($_POST['Submit'])) {
         }else echo 'Incorrect Username or Password';
     } catch(PDOException $error) {
         echo $sql . "<br>" . $error->getMessage();
-    }
+    }*/
 }
 ?>
 
