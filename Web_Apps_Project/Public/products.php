@@ -27,7 +27,7 @@ $result = listproducts($connection);
                     <h5><?php echo 'Description: '. $products['proddescription']; ?></h5>
                     <h5><?php echo 'Price: '. $products['price']; ?>€</h5>
 
-                    <form method="post" action="shopping_cart_2.php?action=add&code=<?php echo $products["id"]; ?>">
+                    <form method="post" action="shopping_cart.php?action=add&code=<?php echo $products["id"]; ?>">
                         <input type="text" class="product-quantity" name="quantity" value="1" size="2" /><input type="submit" value="Add to Cart" class="btnAddAction" />
                     </form>
                 </div>
