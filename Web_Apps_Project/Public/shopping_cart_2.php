@@ -5,66 +5,17 @@
 include "templates/header.php";
 require "../src/functions.php";
 
-
-
 if(!empty($_GET["action"])) {
     switch($_GET["action"]) {
         case "add":
-            if(!empty($_POST["quantity"])) {
-
-                $productByCode = querySingleProduct($connection);
-
-                $itemArray = array($productByCode["id"]=>array('name'=>$productByCode["prodname"], 'code'=>$productByCode["id"], 'proddescription'=>$productByCode["proddescription"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode["price"], 'image'=>$productByCode["image"]));
-
-                if(!empty($_SESSION["cart_item"])) {
-                    if(in_array($productByCode["id"],array_keys($_SESSION["cart_item"]))) {
-                        foreach($_SESSION["cart_item"] as $k => $v) {
-                            if($productByCode["id"] == $k) {
-                                if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-                                    $_SESSION["cart_item"][$k]["quantity"] = 0;
-                                }
-                                $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
-                            }
-                        }
-                    } else {
-                        $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-                    }
-                } else {
-                    $_SESSION["cart_item"] = $itemArray;
-                }
-            }
+            addItemToCart($connection);
             break;
         case "remove":
-            if(!empty($_SESSION["cart_item"])) {
-                foreach($_SESSION["cart_item"] as $k => $v) {
-                    if($_GET["code"] == $k)
-                        unset($_SESSION["cart_item"][$k]);
-                    var_dump($_SESSION["cart_item"]);
-                    if(empty($_SESSION["cart_item"]))
-                        unset($_SESSION["cart_item"]);
-                }
-            }
+            removeItemFromCart($connection);
             break;
         case 'changeCartQuantity':
-            $amount = filter_input(INPUT_POST, 'amount');
-            if($amount == 'increase'){
-                foreach($_SESSION["cart_item"] as $k => $v) {
-                    if($_GET["code"] == $k)
-                        $_SESSION["cart_item"][$k]["quantity"] = $_SESSION["cart_item"][$k]["quantity"] + 1;
-                    if(empty($_SESSION["cart_item"]))
-                        unset($_SESSION["cart_item"]);
-                }
-            } else {
-                foreach($_SESSION["cart_item"] as $k => $v) {
-                    if($_GET["code"] == $k) {
-                        $_SESSION["cart_item"][$k]["quantity"] = $_SESSION["cart_item"][$k]["quantity"] - 1;
-                        if ($_SESSION["cart_item"][$k]["quantity"] == 0)
-                            unset($_SESSION["cart_item"][$k]); //Completed
-                    }
-                    if(empty($_SESSION["cart_item"]))
-                        unset($_SESSION["cart_item"]);
-                }
-            }
+            //Working change here
+            changeCartQuantity($connection);
             break;
         case "empty":
             unset($_SESSION["cart_item"]);
@@ -72,12 +23,10 @@ if(!empty($_GET["action"])) {
     }
 }
 
-
-
 if(isset($_SESSION["cart_item"])){
+
     $subtotal = 0;
     $total_price = 0;
-
 
     foreach($_SESSION["cart_item"] as $item):
         $subtotal = ($item["price"]*$item["quantity"]);

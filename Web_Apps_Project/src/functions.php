@@ -185,26 +185,67 @@ function updateProductById($connection)
 
 
 
-function addItemToCart()
+function addItemToCart($connection)
 {
-    $id = $id - 1; // Product id passed in Get method starts with 1 and products array starts with 0 so adjusting value
-    $cartItems = getShoppingCart();
-    $cartItems[$id] = 1;
-    $_SESSION['cart'] = $cartItems;
+    if(!empty($_POST["quantity"])) {
+        $productByCode = querySingleProduct($connection);
+
+        $itemArray = array($productByCode["id"] => array('name' => $productByCode["prodname"], 'code' => $productByCode["id"], 'proddescription' => $productByCode["proddescription"], 'quantity' => $_POST["quantity"], 'price' => $productByCode["price"], 'image' => $productByCode["image"]));
+
+        if (!empty($_SESSION["cart_item"])) {
+            if (in_array($productByCode["id"], array_keys($_SESSION["cart_item"]))) {
+                foreach ($_SESSION["cart_item"] as $k => $v) {
+                    if ($productByCode["id"] == $k) {
+                        if (empty($_SESSION["cart_item"][$k]["quantity"])) {
+                            $_SESSION["cart_item"][$k]["quantity"] = 0;
+                        }
+                        $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+                    }
+                }
+            } else {
+                $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"], $itemArray);
+            }
+        } else {
+            $_SESSION["cart_item"] = $itemArray;
+        }
+    }
 }
 
-function removeItemFromCart($id)
+function removeItemFromCart($connection)
 {
-    $cartItems = getShoppingCart();
-    unset($cartItems[$id]);
-    echo '    VARDUMP Cart items after remove:    ', "\n";
-
-    var_dump($_SESSION['cart']);
-    $_SESSION['cart'] = $cartItems;
-    echo '    VARDUMP SESSION after remove:    ', "\n";
-    var_dump($_SESSION['cart']);
+    if(!empty($_SESSION["cart_item"])) {
+        foreach($_SESSION["cart_item"] as $k => $v) {
+            if($_GET["code"] == $k)
+                unset($_SESSION["cart_item"][$k]);
+            var_dump($_SESSION["cart_item"]);
+            if(empty($_SESSION["cart_item"]))
+                unset($_SESSION["cart_item"]);
+        }
+    }
 }
 
+function changeCartQuantity($connection)
+{
+    $amount = filter_input(INPUT_POST, 'amount');
+    if($amount == 'increase'){
+        foreach($_SESSION["cart_item"] as $k => $v) {
+            if($_GET["code"] == $k)
+                $_SESSION["cart_item"][$k]["quantity"] = $_SESSION["cart_item"][$k]["quantity"] + 1;
+            if(empty($_SESSION["cart_item"]))
+                unset($_SESSION["cart_item"]);
+        }
+    } else {
+        foreach($_SESSION["cart_item"] as $k => $v) {
+            if($_GET["code"] == $k) {
+                $_SESSION["cart_item"][$k]["quantity"] = $_SESSION["cart_item"][$k]["quantity"] - 1;
+                if ($_SESSION["cart_item"][$k]["quantity"] == 0)
+                    unset($_SESSION["cart_item"][$k]); //Completed
+            }
+            if(empty($_SESSION["cart_item"]))
+                unset($_SESSION["cart_item"]);
+        }
+    }
+}
 function getQuantity($id, $cart)
 {
     if(isset($cart[$id])){
