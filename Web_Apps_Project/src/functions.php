@@ -1,5 +1,7 @@
 <?php
 
+include '../src/DBconnect.php';
+
 function escape($data) {
     $data = htmlspecialchars($data, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8");
     $data = trim($data);
@@ -7,10 +9,9 @@ function escape($data) {
     return ($data);
 }
 
-function validateLogin()
+function validateLogin($connection)
 {
     try {
-        require_once '../src/DBconnect.php';
         $password = escape($_POST['Password']);
         $username = strtolower(escape($_POST['Username']));
         $sql = "SELECT * FROM user WHERE username = :username";
@@ -35,10 +36,9 @@ function validateLogin()
     }
 }
 
-function register()
+function register($connection)
 {
     try {
-        require_once '../src/DBconnect.php';
         echo "success";
         $new_user = array(
             "username" => strtolower(escape($_POST['username'])),
@@ -56,10 +56,9 @@ function register()
     }
 }
 
-function search()
+function search($connection)
 {
     try {
-        require_once '../src/DBconnect.php';
         $sql = "SELECT * FROM product WHERE prodname = :prodname";
         $prodname = $_POST['prodname'];
         $statement = $connection->prepare($sql);
@@ -72,10 +71,9 @@ function search()
     return $result;
 }
 
-function listproducts()
+function listproducts($connection)
 {
     try {
-        require_once '../src/DBconnect.php';
         $sql = "SELECT * FROM product";
         $statement = $connection->prepare($sql);
         $statement->execute();
@@ -86,13 +84,12 @@ function listproducts()
     return $result;
 }
 
-function querySingleProduct()
+function querySingleProduct($connection)
 {
     try {
-        require_once '../src/DBconnect.php';
-        $sql = "SELECT * FROM product WHERE id = :id2";
+        $sql = "SELECT * FROM product WHERE id = :id";
         $statement = $connection->prepare($sql);
-        $statement->bindParam(':id2', $_GET["code"], PDO::PARAM_STR);
+        $statement->bindParam(':id', $_GET["code"], PDO::PARAM_STR);
         $statement->execute();
         $productByCode = $statement->fetch(PDO::FETCH_ASSOC);
     } catch(PDOException $error) {
@@ -101,10 +98,9 @@ function querySingleProduct()
     return $productByCode;
 }
 
-function addProduct()
+function addProduct($connection)
 {
     try {
-        require_once '../src/DBconnect.php';
         $new_product = array(
             "prodname" => escape($_POST['prodname']),
             "category" => escape($_POST['category']),
@@ -126,17 +122,70 @@ function addProduct()
     }
 }
 
-function getShoppingCart()
+function deleteProduct($connection)
 {
-    // default is empty shopping cart array
-    $cartItems = [];
-    if(isset($_SESSION['cart'])){
-        $cartItems = $_SESSION['cart'];
+    try {
+        require_once '../src/DBconnect.php';
+
+        $id = $_GET["id"];
+
+        $sql = "DELETE FROM product WHERE id = :id";
+
+        $statement = $connection->prepare($sql);
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+        $success = "Product ". $id. " successfully deleted";
+    } catch(PDOException $error) {
+        echo $sql . "<br>" . $error->getMessage();
     }
-    return $cartItems;
 }
 
-function addItemToCart($id)
+function queryProductById($connection)
+{
+    try {
+        $id = $_GET['id'];
+        $sql = "SELECT * FROM product WHERE id = :id";
+        $statement = $connection->prepare($sql);
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+        $product = $statement->fetch(PDO::FETCH_ASSOC);
+    } catch(PDOException $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
+    return $product;
+}
+
+function updateProductById($connection)
+{
+    try {
+        require_once '../src/DBconnect.php';
+        $product =[
+            "id" => escape($_POST['id']),
+            "prodname" => escape($_POST['prodname']),
+            "category" => escape($_POST['category']),
+            "proddescription" => escape($_POST['proddescription']),
+            "price" => escape($_POST['price']),
+            "image" => escape($_POST['image'])
+        ];
+        $sql = "UPDATE product
+                SET id = :id,
+                prodname = :prodname,
+                category = :category,
+                proddescription = :proddescription,
+                price = :price,
+                image = :image
+            WHERE id = :id";
+        $statement = $connection->prepare($sql);
+        $statement->execute($product);
+    } catch(PDOException $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
+    return $statement;
+}
+
+
+
+function addItemToCart()
 {
     $id = $id - 1; // Product id passed in Get method starts with 1 and products array starts with 0 so adjusting value
     $cartItems = getShoppingCart();

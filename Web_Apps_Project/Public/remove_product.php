@@ -6,34 +6,14 @@ if($_SESSION['Active'] == false){
     exit;
 }
 
+require "../src/functions.php";
+
 if (isset($_GET["id"])) {
-    try {
-        require_once '../src/DBconnect.php';
-
-        $id = $_GET["id"];
-
-        $sql = "DELETE FROM product WHERE id = :id";
-
-        $statement = $connection->prepare($sql);
-        $statement->bindValue(':id', $id);
-        $statement->execute();
-        $success = "Product ". $id. " successfully deleted";
-    } catch(PDOException $error) {
-        echo $sql . "<br>" . $error->getMessage();
-    }
+    deleteProduct($connection);
 }
 
-try {
-    require "../src/functions.php";
-    require_once '../src/DBconnect.php';
-    $sql = "SELECT *
-FROM product";
-    $statement = $connection->prepare($sql);
-    $statement->execute();
-    $result = $statement->fetchAll();
-} catch(PDOException $error) {
-    echo $sql . "<br>" . $error->getMessage();
-}
+$result = listproducts($connection);
+
 ?>
 
 <?php include "templates/header.php"; ?>

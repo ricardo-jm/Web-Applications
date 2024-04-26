@@ -8,7 +8,7 @@ require "../src/functions.php";
 
 if (isset($_POST['Submit'])) {
 
-    validateLogin();
+    validateLogin($connection);
     /*try {
         require_once '../src/DBconnect.php';
         $password = escape($_POST['Password']);

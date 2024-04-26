@@ -9,43 +9,11 @@ if($_SESSION['Active'] == false){
 require "../src/functions.php";
 
 if (isset($_POST['submit'])) {
-    try {
-        require_once '../src/DBconnect.php';
-        $product =[
-            "id" => escape($_POST['id']),
-            "prodname" => escape($_POST['prodname']),
-            "category" => escape($_POST['category']),
-            "proddescription" => escape($_POST['proddescription']),
-            "price" => escape($_POST['price']),
-            "image" => escape($_POST['image'])
-        ];
-        $sql = "UPDATE product
-                SET id = :id,
-                prodname = :prodname,
-                category = :category,
-                proddescription = :proddescription,
-                price = :price,
-                image = :image
-            WHERE id = :id";
-        $statement = $connection->prepare($sql);
-        $statement->execute($product);
-    } catch(PDOException $error) {
-        echo $sql . "<br>" . $error->getMessage();
-    }
+    $statement = updateProductById($connection);
 }
 
 if (isset($_GET['id'])) {
-    try {
-        require_once '../src/DBconnect.php';
-        $id = $_GET['id'];
-        $sql = "SELECT * FROM product WHERE id = :id";
-        $statement = $connection->prepare($sql);
-        $statement->bindValue(':id', $id);
-        $statement->execute();
-        $product = $statement->fetch(PDO::FETCH_ASSOC);
-    } catch(PDOException $error) {
-        echo $sql . "<br>" . $error->getMessage();
-    }
+    $product = queryProductById($connection);
 } else {
     echo "Something went wrong!";
     exit;

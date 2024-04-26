@@ -3,7 +3,7 @@
 require "../src/functions.php";
 
 if (isset($_POST['submit'])) {
-    $result = search();
+    $result = search($connection);
 }
 ?>
 

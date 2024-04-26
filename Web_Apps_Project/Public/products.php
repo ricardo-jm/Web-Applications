@@ -7,7 +7,7 @@ if($_SESSION['Active'] == false){
 
 require "../src/functions.php";
 
-$result = listproducts();
+$result = listproducts($connection);
 ?>
 
 <?php include "templates/header.php"; ?>

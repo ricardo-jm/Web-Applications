@@ -2,7 +2,7 @@
 
 require "../src/functions.php";
 if (isset($_POST['submit'])) {
-    register();
+    register($connection);
 }
 
 include "templates/header_login.php";

@@ -10,7 +10,7 @@ include "templates/header.php";
 require "../src/functions.php";
 
 if (isset($_POST['submit'])) {
-    addProduct();
+    addProduct($connection);
 }
 
 ?>

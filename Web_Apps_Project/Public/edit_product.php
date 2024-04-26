@@ -5,18 +5,9 @@ if($_SESSION['Active'] == false){
     header("location:login.php");
     exit;
 }
+require "../src/functions.php";
 
-try {
-    require "../src/functions.php";
-    require_once '../src/DBconnect.php';
-    $sql = "SELECT *
-FROM product";
-    $statement = $connection->prepare($sql);
-    $statement->execute();
-    $result = $statement->fetchAll();
-} catch(PDOException $error) {
-    echo $sql . "<br>" . $error->getMessage();
-}
+$result = listproducts($connection);
 ?>
 
 <?php include "templates/header.php"; ?>

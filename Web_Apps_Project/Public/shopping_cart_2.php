@@ -12,7 +12,7 @@ if(!empty($_GET["action"])) {
         case "add":
             if(!empty($_POST["quantity"])) {
 
-                $productByCode = querySingleProduct();
+                $productByCode = querySingleProduct($connection);
 
                 $itemArray = array($productByCode["id"]=>array('name'=>$productByCode["prodname"], 'code'=>$productByCode["id"], 'proddescription'=>$productByCode["proddescription"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode["price"], 'image'=>$productByCode["image"]));
 
