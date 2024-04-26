@@ -8,8 +8,7 @@ if($_SESSION['Active'] == false){
 try {
     require "../common.php";
     require_once '../src/DBconnect.php';
-    $sql = "SELECT *
-FROM product";
+    $sql = "SELECT * FROM product";
     $statement = $connection->prepare($sql);
     $statement->execute();
     $result = $statement->fetchAll();
@@ -35,7 +34,10 @@ FROM product";
                     <h5><?php echo $products['category']; ?></span></h5>
                     <h5><?php echo 'Description: '. $products['proddescription']; ?></h5>
                     <h5><?php echo 'Price: '. $products['price']; ?>€</h5>
-                    <a href="shopping_cart.php?id=<?php echo escape($products["id"]); ?>" class="home-link text-uppercase"> Add to cart </a>
+                    <a href="shopping_cart_2.php?code=<?php echo escape($products["id"]); ?>" class="home-link text-uppercase"> Add to cart </a>
+                    <form method="post" action="shopping_cart_2.php?action=add&code=<?php echo $products["id"]; ?>">
+                        <input type="text" class="product-quantity" name="quantity" value="1" size="2" /><input type="submit" value="Add to Cart" class="btnAddAction" />
+                    </form>
                 </div>
             <?php } ?>
         </div>

@@ -14,7 +14,7 @@ function addItemToCart($id)
 {
     $id = $id - 1; // Product id passed in Get method starts with 1 and products array starts with 0 so adjusting value
     $cartItems = getShoppingCart();
-    $cartItems[$id] = $cartItems[$id] +1;
+    $cartItems[$id] = 1;
     $_SESSION['cart'] = $cartItems;
 }
 
