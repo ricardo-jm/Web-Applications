@@ -1,12 +1,15 @@
 <?php
 
-require "../common.php";
-
+function escape($data) {
+    $data = htmlspecialchars($data, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8");
+    $data = trim($data);
+    $data = stripslashes($data);
+    return ($data);
+}
 
 function validateLogin()
 {
     try {
-        //require "../common.php";
         require_once '../src/DBconnect.php';
         $password = escape($_POST['Password']);
         $username = strtolower(escape($_POST['Username']));
@@ -67,6 +70,60 @@ function search()
         echo $sql . "<br>" . $error->getMessage();
     }
     return $result;
+}
+
+function listproducts()
+{
+    try {
+        require_once '../src/DBconnect.php';
+        $sql = "SELECT * FROM product";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+    } catch(PDOException $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
+    return $result;
+}
+
+function querySingleProduct()
+{
+    try {
+        require_once '../src/DBconnect.php';
+        $sql = "SELECT * FROM product WHERE id = :id2";
+        $statement = $connection->prepare($sql);
+        $statement->bindParam(':id2', $_GET["code"], PDO::PARAM_STR);
+        $statement->execute();
+        $productByCode = $statement->fetch(PDO::FETCH_ASSOC);
+    } catch(PDOException $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
+    return $productByCode;
+}
+
+function addProduct()
+{
+    try {
+        require_once '../src/DBconnect.php';
+        $new_product = array(
+            "prodname" => escape($_POST['prodname']),
+            "category" => escape($_POST['category']),
+            "proddescription" => escape($_POST['proddescription']),
+            "price" => escape($_POST['price']),
+            "image" => escape($_POST['image'])
+        );
+
+        $sql = sprintf( "INSERT INTO %s (%s) values (%s)", "product", implode(", ",
+            array_keys($new_product)), ":" . implode(", :", array_keys($new_product)) );
+        $statement = $connection->prepare($sql);
+        $statement->execute($new_product);
+    } catch(PDOException $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
+    if (isset($_POST['submit']) && $statement)
+    {
+        echo $new_product['prodname']. ' successfully added';
+    }
 }
 
 function getShoppingCart()

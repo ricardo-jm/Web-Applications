@@ -2,7 +2,7 @@
 
 <?php
 session_start();
-require "../common.php";
+require "../src/functions.php";
 require_once '../src/DBconnect.php';
 
 //$db_handle = new DBController();

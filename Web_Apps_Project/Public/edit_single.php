@@ -6,7 +6,7 @@ if($_SESSION['Active'] == false){
     exit;
 }
 
-require "../common.php";
+require "../src/functions.php";
 
 if (isset($_POST['submit'])) {
     try {

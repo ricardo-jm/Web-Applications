@@ -7,32 +7,12 @@ if($_SESSION['Active'] == false){
 
 include "templates/header.php";
 
-require "../common.php";
+require "../src/functions.php";
 
 if (isset($_POST['submit'])) {
-    try {
-        require_once '../src/DBconnect.php';
-        echo "success";
-        $new_product = array(
-            "prodname" => escape($_POST['prodname']),
-            "category" => escape($_POST['category']),
-            "proddescription" => escape($_POST['proddescription']),
-            "price" => escape($_POST['price']),
-            "image" => escape($_POST['image'])
-        );
+    addProduct();
+}
 
-        $sql = sprintf( "INSERT INTO %s (%s) values (%s)", "product", implode(", ",
-            array_keys($new_product)), ":" . implode(", :", array_keys($new_product)) );
-        $statement = $connection->prepare($sql);
-        $statement->execute($new_product);
-    } catch(PDOException $error) {
-        echo $sql . "<br>" . $error->getMessage();
-    }
-}
-if (isset($_POST['submit']) && $statement)
-{
-    echo $new_product['prodname']. ' successfully added';
-}
 ?>
 
     <body>

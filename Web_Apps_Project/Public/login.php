@@ -10,7 +10,6 @@ if (isset($_POST['Submit'])) {
 
     validateLogin();
     /*try {
-        //require "../common.php";
         require_once '../src/DBconnect.php';
         $password = escape($_POST['Password']);
         $username = strtolower(escape($_POST['Username']));

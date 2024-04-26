@@ -24,7 +24,7 @@ if (isset($_GET["id"])) {
 }
 
 try {
-    require "../common.php";
+    require "../src/functions.php";
     require_once '../src/DBconnect.php';
     $sql = "SELECT *
 FROM product";
