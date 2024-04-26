@@ -1,25 +1,14 @@
 <?php
 
+require "../src/functions.php";
 
 if (isset($_POST['submit'])) {
-    try {
-        require "../common.php";
-        require_once '../src/DBconnect.php';
-        $sql = "SELECT * FROM product WHERE prodname = :prodname";
-        $prodname = $_POST['prodname'];
-        $statement = $connection->prepare($sql);
-        $statement->bindParam(':prodname', $prodname, PDO::PARAM_STR);
-        $statement->execute();
-        $result = $statement->fetchAll();
-    } catch(PDOException $error) {
-        echo $sql . "<br>" . $error->getMessage();
-    }
+    $result = search();
 }
 ?>
 
 <?php include "templates/header.php"; ?>
 
-<body>
 <!-- Products Search Result -->
 <section  class="pt-4 bg-secondary">
     <div class="container-fluid py-4">
@@ -66,5 +55,3 @@ if (isset($_POST['submit'])) {
 
 <?php include "templates/footer.php"; ?>
 
-</body>
-</html>

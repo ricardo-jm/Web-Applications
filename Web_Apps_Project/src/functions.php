@@ -53,6 +53,22 @@ function register()
     }
 }
 
+function search()
+{
+    try {
+        require_once '../src/DBconnect.php';
+        $sql = "SELECT * FROM product WHERE prodname = :prodname";
+        $prodname = $_POST['prodname'];
+        $statement = $connection->prepare($sql);
+        $statement->bindParam(':prodname', $prodname, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchAll();
+    } catch(PDOException $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
+    return $result;
+}
+
 function getShoppingCart()
 {
     // default is empty shopping cart array
