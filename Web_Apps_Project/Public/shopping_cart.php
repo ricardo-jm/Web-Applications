@@ -1,4 +1,5 @@
 
+<!-- This Shopping cart was created using the tutorial Robert provided us and the one found in  https://phppot.com/php/simple-php-shopping-cart/-->
 
 <?php
 

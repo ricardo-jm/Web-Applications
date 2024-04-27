@@ -1,3 +1,4 @@
+<?php $title = 'Services'; ?>
 <?php include "templates/header.php";?>
 
 <!-- Services -->

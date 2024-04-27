@@ -4,7 +4,7 @@ if($_SESSION['Active'] == false){
     header("location:login.php");
     exit;
 }
-
+$title = 'Add product';
 include "templates/header.php";
 
 require "../src/functions.php";

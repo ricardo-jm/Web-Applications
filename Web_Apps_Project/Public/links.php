@@ -1,3 +1,4 @@
+<?php $title = 'Links Downloads'; ?>
 <?php include "templates/header.php";?>
 
 <!-- Links -->

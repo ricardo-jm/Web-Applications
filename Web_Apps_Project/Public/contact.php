@@ -1,3 +1,5 @@
+<?php $title = 'Contact'; ?>
+
 <?php include "templates/header.php";?>
 
 <!-- Contact -->

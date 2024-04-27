@@ -10,6 +10,7 @@ require "../src/functions.php";
 $result = listproducts($connection);
 ?>
 
+<?php $title = 'Edit product'; ?>
 <?php include "templates/header.php"; ?>
 
 <body>

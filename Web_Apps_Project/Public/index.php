@@ -1,4 +1,5 @@
 
+<?php $title = 'SVDNS'; ?>
 <?php include "templates/header.php"; ?>
 
 <!-- Banner -->

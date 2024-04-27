@@ -15,7 +15,7 @@ if (isset($_GET["id"])) {
 $result = listproducts($connection);
 
 ?>
-
+<?php $title = 'Remove Product'; ?>
 <?php include "templates/header.php"; ?>
 
 <body>

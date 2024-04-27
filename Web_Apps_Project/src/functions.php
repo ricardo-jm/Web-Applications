@@ -1,3 +1,9 @@
+
+
+<!-- The functions have the variable $connection passed to avoid the error "Uncaught Error: Call to a member function prepare() on null" -->
+<!-- The solution for this error was found in  https://stackoverflow.com/questions/44957405/php-pdo-uncaught-error-call-to-a-member-function-prepare-on-null-->
+
+
 <?php
 
 include '../src/DBconnect.php';

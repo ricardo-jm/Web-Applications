@@ -7,6 +7,7 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
+<?php $title = 'Search Product'; ?>
 <?php include "templates/header.php"; ?>
 
 <!-- Products Search Result -->

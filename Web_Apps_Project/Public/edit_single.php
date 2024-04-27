@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
 }
 
 ?>
-
+<?php $title = 'Edit product'; ?>
 <?php require "templates/header.php"; ?>
 
 <?php if (isset($_POST['submit']) && $statement) : ?>

@@ -9,7 +9,7 @@ require "../src/functions.php";
 
 $result = listproducts($connection);
 ?>
-
+<?php $title = 'Products'; ?>
 <?php include "templates/header.php"; ?>
 
 <!-- Products -->

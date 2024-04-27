@@ -1,3 +1,4 @@
+<?php $title = 'Gallery'; ?>
 <?php include "templates/header.php";?>
 
 <!-- Gallery -->
