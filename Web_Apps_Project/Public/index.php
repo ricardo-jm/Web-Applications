@@ -11,7 +11,7 @@
                     <h1 class="display-4 text-secondary  pr-5 mr-5">(Not SAAB)</h1>
                 </div>
                 <div class="row justify-content-end">
-                    <a href="contact.html" class="btn btn-danger btn-lg px-4 m-5">Contact Us</a>
+                    <a href="contact.php" class="btn btn-danger btn-lg px-4 m-5">Contact Us</a>
                 </div>
                 <h2 class="font-weight-light font-italic text-light">Providing Diagnostics support to Volvo enthusiasts</h2>
                 <h2 class="font-weight-light font-italic text-light">Welcome! You are Logged in <?php echo ucfirst($_SESSION['Username']);?></h2>
@@ -51,13 +51,11 @@
             <div class="div_home">
                 <h3 class="p-4 mt-4">Links: </h3>
                 <ul class="pb-3">
-                    <li><a href="services.html" class="home-link text-uppercase">Services</a></li>
-                    <li><a href="rentals.html" class="home-link text-uppercase">Rentals</a></li>
-                    <li><a href="sales.html" class="home-link text-uppercase">Sales</a></li>
-                    <li><a href="links.html" class="home-link text-uppercase">Links</a></li>
-                    <li><a href="gallery.html" class="home-link text-uppercase">Galery</a></li>
-                    <li><a href="about.html" class="home-link text-uppercase">About Us</a></li>
-                    <li><a href="contact.html" class="home-link text-uppercase">Contact Us</a></li>
+                    <li><a href="services.php" class="home-link text-uppercase">Services</a></li>
+                    <li><a href="links.php" class="home-link text-uppercase">Links</a></li>
+                    <li><a href="gallery.php" class="home-link text-uppercase">Galery</a></li>
+                    <li><a href="about.php" class="home-link text-uppercase">About Us</a></li>
+                    <li><a href="contact.php" class="home-link text-uppercase">Contact Us</a></li>
                 </ul>
             </div>
         </div>
