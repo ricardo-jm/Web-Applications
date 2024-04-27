@@ -50,5 +50,3 @@ INSERT INTO `product`
     VALUES
     (4, 'VDASH', 'Software', 'Aftermarket Volvo Diag SW', 25, 'vdash.png');
     
-SELECT * from user;
-SELECT * from product;
