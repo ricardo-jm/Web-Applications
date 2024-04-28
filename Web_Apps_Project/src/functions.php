@@ -1,9 +1,4 @@
 
-
-<!-- The functions have the variable $connection passed to avoid the error "Uncaught Error: Call to a member function prepare() on null" -->
-<!-- The solution for this error was found in  https://stackoverflow.com/questions/44957405/php-pdo-uncaught-error-call-to-a-member-function-prepare-on-null-->
-
-
 <?php
 
 include '../src/DBconnect.php';
@@ -221,9 +216,8 @@ function removeItemFromCart($connection)
 {
     if(!empty($_SESSION["cart_item"])) {
         foreach($_SESSION["cart_item"] as $k => $v) {
-            if($_GET["code"] == $k)
+            if($_GET["code"] == $v['code'])
                 unset($_SESSION["cart_item"][$k]);
-            var_dump($_SESSION["cart_item"]);
             if(empty($_SESSION["cart_item"]))
                 unset($_SESSION["cart_item"]);
         }
@@ -235,14 +229,14 @@ function changeCartQuantity($connection)
     $amount = filter_input(INPUT_POST, 'amount');
     if($amount == 'increase'){
         foreach($_SESSION["cart_item"] as $k => $v) {
-            if($_GET["code"] == $k)
+            if($_GET["code"] == $v['code'])
                 $_SESSION["cart_item"][$k]["quantity"] = $_SESSION["cart_item"][$k]["quantity"] + 1;
             if(empty($_SESSION["cart_item"]))
                 unset($_SESSION["cart_item"]);
         }
     } else {
         foreach($_SESSION["cart_item"] as $k => $v) {
-            if($_GET["code"] == $k) {
+            if($_GET["code"] == $v['code']) {
                 $_SESSION["cart_item"][$k]["quantity"] = $_SESSION["cart_item"][$k]["quantity"] - 1;
                 if ($_SESSION["cart_item"][$k]["quantity"] == 0)
                     unset($_SESSION["cart_item"][$k]); //Completed
@@ -252,42 +246,4 @@ function changeCartQuantity($connection)
         }
     }
 }
-function getQuantity($id, $cart)
-{
-    if(isset($cart[$id])){
-        return $cart[$id];
-    } else {return 0;}
-}
 
-function increaseCartQuantity($id)
-{
-    $cartItems = getShoppingCart();
-    $quantity = getQuantity($id, $cartItems);
-    $newQuantity = $quantity + 1;
-    $cartItems[$id] = $newQuantity;
-    $_SESSION['cart'] = $cartItems;
-}
-
-function reduceCartQuantity($id)
-{
-    $cartItems = getShoppingCart();
-    $quantity = getQuantity($id, $cartItems);
-    $newQuantity = $quantity - 1;
-    if($newQuantity < 1){
-        unset($cartItems[$id]);
-    } else {
-        $cartItems[$id] = $newQuantity;
-    }
-    $_SESSION['cart'] = $cartItems;
-}
-
-/*function displayCart()
-{
-    //$products = getAllProducts();
-    $cartItems = getShoppingCart();
-    if(!empty($cartItems)){
-        require_once __DIR__ . '/../templates/cart.php';
-    } else {
-        require_once __DIR__ . '/../templates/emptyCart.php';
-    }
-}*/
