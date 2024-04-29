@@ -1,6 +1,11 @@
 Online Store php project created for Web Applications class(TU-054 Computer Systems TUDublin Course)
 Author: Ricardo Martins, Student B00149259
 
+
+ - User needs to login to be able to see web pages other than the login and register pages.
+ - Admin user can add/delete and update products while other users are only able to view the products list and add them to the shopping cart.
+
+
 - The Shopping cart was created using the tutorial Robert provided us mixed with the one found in  https://phppot.com/php/simple-php-shopping-cart/.
 Features of both shopping cart tutorials were used and mixed.
 
