@@ -1,7 +1,7 @@
 
 
 <?php
-
+$title = 'Shopping Cart';
 include "templates/header.php";
 require "../src/functions.php";
 
