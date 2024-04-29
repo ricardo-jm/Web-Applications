@@ -9,7 +9,7 @@ include "templates/header_login.php";
 ?>
 
     <!-- RegisterR -->
-    <section class="pt-4 bg-secondary">
+    <section class="pt-4 bg-secondary mt-4">
         <div class="container-fluid">
             <div class="row bg-secondary justify-content-center text-center align-items-center text-white">
                 <div class="col-lg-6">
