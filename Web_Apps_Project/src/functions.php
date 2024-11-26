@@ -48,8 +48,17 @@ function register($connection)
             "phone" => escape($_POST['phone'])
         );
 
-        $sql = sprintf("INSERT INTO %s (%s) values (%s)", "user", implode(", ",
-            array_keys($new_user)), ":" . implode(", :", array_keys($new_user)));
+        //$sql = sprintf("INSERT INTO %s (%s) values (%s)", "user", implode(", ",
+        //    array_keys($new_user)), ":" . implode(", :", array_keys($new_user)));
+
+        $sql = "INSERT INTO user (username, password, email, phone) 
+                VALUES (:username, :password, :email, :phone)";
+
+        $statement->bindParam(':username', $new_user['username']);
+        $statement->bindParam(':password', $new_user['pwd']);
+        $statement->bindParam(':email', $new_user['email']);
+        $statement->bindParam(':phone', $new_user['phone']);
+
         $statement = $connection->prepare($sql);
         $statement->execute($new_user);
     } catch (PDOException $error) {
